@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог Книг - LMS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            --text-color: #1f2937;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary-bg: #e5e7eb;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --bg-gradient: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            --text-color: #f9fafb;
+            --card-bg: rgba(31, 41, 55, 0.95);
+            --primary-color: #818cf8;
+            --primary-hover: #6366f1;
+            --secondary-bg: #374151;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
+            background-size: cover;
+            color: var(--text-color);
+            margin: 0;
+            transition: background-image 0.5s ease, color 0.3s ease;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .lang-select {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid var(--secondary-bg);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            transition: transform 0.3s;
+        }
+        .theme-toggle:hover { transform: rotate(15deg); }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            animation: fadeInUp 0.6s ease-out; /* Добавлена анимация для всего контейнера */
+        }
+
+        .back-nav {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--card-bg);
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .back-nav:hover {
+            transform: translateX(-5px);
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--secondary-bg);
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-primary { background-color: var(--primary-color); color: white; }
+
+        .table-container {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            overflow-x: auto;
+            padding: 1rem;
+            backdrop-filter: blur(5px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--secondary-bg);
+        }
+
+        th { font-weight: 700; text-transform: uppercase; font-size: 0.8rem; }
+
+        .badge {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        /* Определение анимации fadeInUp */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo">📚 LibraryOS</a>
+        <div class="nav-controls">
+            <select id="langSelect" class="lang-select">
+                <option value="ru">Русский</option>
+                <option value="en">English</option>
+            </select>
+            <button class="theme-toggle" id="themeToggle" title="Переключить тему">🌙</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <a href="/" class="back-nav" data-i18n="back">← На Главную</a>
+
+        <div class="header">
+            <h1 data-i18n="bookFund">Книжный Фонд</h1>
+            <form action="/books" method="get" class="search-form">
+                <input type="text" name="query" th:value="${query}" placeholder="Поиск по названию..." class="search-input" id="searchInput">
+                <button type="submit" class="btn btn-primary" data-i18n="find">Найти</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th data-i18n="title">Название</th>
+                        <th>ISBN</th>
+                        <th data-i18n="year">Год</th>
+                        <th data-i18n="publisher">Издатель</th>
+                        <th data-i18n="language">Язык</th>
+                        <th data-i18n="pages">Стр.</th>
+                        <th data-i18n="copies">Копий</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="book : ${books}">
+                        <td th:text="${book.bookId}">ID</td>
+                        <td th:text="${book.title}" style="font-weight: 600;">Title</td>
+                        <td th:text="${book.isbn}" style="font-family: monospace;">ISBN</td>
+                        <td th:text="${book.publishYear}">Year</td>
+                        <td th:text="${book.publisher}">Publisher</td>
+                        <td th:text="${book.language}">Lang</td>
+                        <td th:text="${book.pages}">Pages</td>
+                        <td><span class="badge" th:text="${book.totalCopies}">0</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            ru: {
+                bookFund: "Книжный Фонд",
+                find: "Найти",
+                title: "Название",
+                year: "Год",
+                publisher: "Издатель",
+                language: "Язык",
+                pages: "Стр.",
+                copies: "Копий",
+                back: "← На Главную",
+                searchPlaceholder: "Поиск по названию..."
+            },
+            en: {
+                bookFund: "Book Collection",
+                find: "Search",
+                title: "Title",
+                year: "Year",
+                publisher: "Publisher",
+                language: "Language",
+                pages: "Pages",
+                copies: "Copies",
+                back: "← Back to Home",
+                searchPlaceholder: "Search by title..."
+            }
+        };
+
+        const langSelect = document.getElementById('langSelect');
+        const searchInput = document.getElementById('searchInput');
+
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            if (translations[lang].searchPlaceholder) searchInput.placeholder = translations[lang].searchPlaceholder;
+            localStorage.setItem('lang', lang);
+            langSelect.value = lang;
+        }
+
+        langSelect.addEventListener('change', (e) => setLanguage(e.target.value));
+        setLanguage(localStorage.getItem('lang') || 'ru');
+
+        const toggleBtn = document.getElementById('themeToggle');
+        const body = document.body;
+
+        if (localStorage.getItem('theme')) {
+            body.setAttribute('data-theme', localStorage.getItem('theme'));
+            toggleBtn.textContent = localStorage.getItem('theme') === 'dark' ? '☀️' : '🌙';
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            const newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            toggleBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+    </script>
+</body>
+</html>
