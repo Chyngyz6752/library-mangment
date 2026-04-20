@@ -1,38 +1,34 @@
 package com.example.library.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import org.hibernate.annotations.Formula;
-import java.time.LocalDate;
+import lombok.Setter;
 
-/**
- * Сущность, представляющая читателя библиотеки.
- */
+import java.time.LocalDate;
+import java.util.Objects;
+
 @Entity
 @Table(name = "members", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email"),
-        @UniqueConstraint(columnNames = "phone")
+        @UniqueConstraint(name = "uk_member_email", columnNames = "email"),
+        @UniqueConstraint(name = "uk_member_phone", columnNames = "phone")
 })
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Member {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
 
-    @Column(nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Formula("first_name || ' ' || last_name")
-    private String fullName;
-
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(unique = true)
@@ -40,10 +36,32 @@ public class Member {
 
     private String address;
 
-    @Column(nullable = false)
+    @Column(name = "registration_date", nullable = false, updatable = false)
     private LocalDate registrationDate = LocalDate.now();
 
-    private boolean isActive = true;
+    @Column(name = "is_active", nullable = false)
+    private boolean active = true;
 
+    @Column(name = "max_allowed_loans", nullable = false)
     private int maxAllowedLoans = 5;
+
+    @Version
+    private Long version;
+
+    @Transient
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Member other)) return false;
+        return memberId != null && memberId.equals(other.memberId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(memberId);
+    }
 }

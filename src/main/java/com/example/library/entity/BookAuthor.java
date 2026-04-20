@@ -1,19 +1,19 @@
 package com.example.library.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.Setter;
 
-/**
- * Сущность для связи многие-ко-многим между Book и Author.
- */
+import java.util.Objects;
+
 @Entity
 @Table(name = "book_authors")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class BookAuthor {
+
     @EmbeddedId
     private BookAuthorId id;
 
@@ -27,5 +27,17 @@ public class BookAuthor {
     @JoinColumn(name = "author_id")
     private Author author;
 
-    private String contribution; // e.g., "Author", "Illustrator"
+    private String contribution;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BookAuthor other)) return false;
+        return id != null && id.equals(other.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

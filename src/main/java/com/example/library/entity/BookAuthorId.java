@@ -1,18 +1,20 @@
 package com.example.library.entity;
 
 import jakarta.persistence.Embeddable;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 
-/**
- * Составной ключ для сущности BookAuthor.
- */
 @Embeddable
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class BookAuthorId implements Serializable {
     private Long bookId;
     private Long authorId;
