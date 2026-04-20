@@ -1,18 +1,20 @@
 package com.example.library.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-/**
- * DTO для стандартизированного ответа об ошибке.
- */
-@Data
-@AllArgsConstructor
-public class ErrorResponseDto {
-    private LocalDateTime timestamp;
-    private int status;
-    private String error;
-    private String message;
-    private String path;
+import java.time.LocalDateTime;
+import java.util.Map;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public record ErrorResponseDto(
+        LocalDateTime timestamp,
+        int status,
+        String error,
+        String message,
+        String path,
+        Map<String, String> validationErrors
+) {
+    public ErrorResponseDto(LocalDateTime timestamp, int status, String error, String message, String path) {
+        this(timestamp, status, error, message, path, null);
+    }
 }

@@ -1,13 +1,13 @@
 package com.example.library.config;
 
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * Конфигурация для OpenAPI (Swagger).
- */
 @Configuration
 public class OpenApiConfig {
 
@@ -16,7 +16,10 @@ public class OpenApiConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Library Management System API")
-                        .version("1.0")
-                        .description("API for managing a library, including books, members, and loans."));
+                        .version("2.0")
+                        .description("REST API for books, copies, authors, categories, members and loans."))
+                .components(new Components().addSecuritySchemes("basicAuth",
+                        new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic")))
+                .addSecurityItem(new SecurityRequirement().addList("basicAuth"));
     }
 }

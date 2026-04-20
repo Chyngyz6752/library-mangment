@@ -2,19 +2,17 @@ package com.example.library.controller;
 
 import com.example.library.dto.MemberCreateDto;
 import com.example.library.dto.MemberDto;
+import com.example.library.dto.MemberUpdateDto;
 import com.example.library.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-/**
- * REST controller for managing library members.
- * Works exclusively with DTOs.
- */
 @RestController
 @RequestMapping("/api/members")
 @RequiredArgsConstructor
@@ -23,8 +21,10 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping
-    public ResponseEntity<List<MemberDto>> getAllMembers() {
-        return ResponseEntity.ok(memberService.getAllMembers());
+    public ResponseEntity<Page<MemberDto>> getAllMembers(
+            @PageableDefault(size = 20, sort = "memberId") Pageable pageable
+    ) {
+        return ResponseEntity.ok(memberService.getAllMembers(pageable));
     }
 
     @GetMapping("/{id}")
@@ -34,7 +34,17 @@ public class MemberController {
 
     @PostMapping
     public ResponseEntity<MemberDto> createMember(@Valid @RequestBody MemberCreateDto memberDto) {
-        MemberDto createdMember = memberService.createMember(memberDto);
-        return new ResponseEntity<>(createdMember, HttpStatus.CREATED);
+        return new ResponseEntity<>(memberService.createMember(memberDto), HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<MemberDto> updateMember(@PathVariable Long id, @Valid @RequestBody MemberUpdateDto dto) {
+        return ResponseEntity.ok(memberService.updateMember(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deactivate(@PathVariable Long id) {
+        memberService.deactivateMember(id);
+        return ResponseEntity.noContent().build();
     }
 }

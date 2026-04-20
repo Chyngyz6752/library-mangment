@@ -3,314 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная - LMS</title>
+    <title>LibraryOS</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            /* Light Theme Colors */
-            --bg-gradient: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); /* Soft Purple to Blue */
-            --text-color: #1f2937;
-            --card-bg: rgba(255, 255, 255, 0.9); /* Slight transparency */
-            --primary-color: #6366f1;
-            --primary-hover: #4f46e5;
-            --secondary-bg: #e5e7eb;
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --transition: all 0.3s ease;
-        }
-
-        [data-theme="dark"] {
-            /* Dark Theme Colors */
-            --bg-gradient: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); /* Deep Sea/Space */
-            --text-color: #f9fafb;
-            --card-bg: rgba(31, 41, 55, 0.9); /* Slight transparency */
-            --primary-color: #818cf8;
-            --primary-hover: #6366f1;
-            --secondary-bg: #374151;
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-image: var(--bg-gradient);
-            background-attachment: fixed; /* Keeps background static */
-            background-size: cover;
-            color: var(--text-color);
-            margin: 0;
-            transition: background-image 0.5s ease, color 0.3s ease;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Navbar */
-        .navbar {
-            background-color: var(--card-bg);
-            backdrop-filter: blur(10px); /* Glass effect */
-            padding: 1rem 2rem;
-            box-shadow: var(--shadow);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            transition: background-color 0.3s;
-        }
-
-        .logo {
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .lang-select {
-            padding: 5px 10px;
-            border-radius: 5px;
-            border: 1px solid var(--secondary-bg);
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            font-family: inherit;
-            cursor: pointer;
-        }
-
-        .theme-toggle {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: var(--text-color);
-            transition: transform 0.3s;
-        }
-        .theme-toggle:hover { transform: rotate(15deg); }
-
-        /* Main Content */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 1rem;
-            flex: 1;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .hero {
-            text-align: center;
-            margin-bottom: 4rem;
-            animation: fadeInDown 0.8s ease-out;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            /* Text shadow for better readability on gradients */
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            color: var(--text-color);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-color);
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-            font-weight: 500;
-        }
-
-        /* Cards Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            backdrop-filter: blur(5px);
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: var(--shadow);
-            text-align: center;
-            transition: var(--transition);
-            border: 1px solid rgba(255,255,255,0.1);
-            cursor: pointer;
-            text-decoration: none;
-            color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-color);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
-        }
-
-        .card-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background-color: var(--secondary-bg);
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: var(--transition);
-        }
-
-        .card:hover .card-icon {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .card h3 { margin: 0.5rem 0; font-size: 1.5rem; }
-        .card p { opacity: 0.8; font-size: 0.95rem; }
-
-        /* Animations */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            opacity: 0.8;
-            font-size: 0.9rem;
-            color: var(--text-color);
-            font-weight: 500;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
+<nav class="navbar">
+    <a href="/" class="logo">📚 LibraryOS</a>
+    <div class="nav-controls">
+        <a href="/books" class="nav-link">Каталог</a>
+        <a href="/dashboard" class="nav-link">Статистика</a>
+        <a href="/swagger-ui.html" class="nav-link" target="_blank">API</a>
+        <button class="theme-toggle" id="themeToggle" title="Переключить тему">🌙</button>
+    </div>
+</nav>
 
-    <nav class="navbar">
-        <div class="logo">📚 LibraryOS</div>
-        <div class="nav-controls">
-            <select id="langSelect" class="lang-select">
-                <option value="ru">Русский</option>
-                <option value="en">English</option>
-            </select>
-            <button class="theme-toggle" id="themeToggle" title="Переключить тему">🌙</button>
-        </div>
-    </nav>
-
-    <div class="container">
-        <div class="hero">
-            <h1 data-i18n="welcome">Добро пожаловать</h1>
-            <p data-i18n="subtitle">Современная система управления библиотечным фондом. Быстро, удобно, надежно.</p>
-        </div>
-
-        <div class="grid">
-            <a href="/books" class="card">
-                <div class="card-icon">📖</div>
-                <h3 data-i18n="catalog">Каталог Книг</h3>
-                <p data-i18n="catalogDesc">Просмотр, поиск и управление книжным фондом.</p>
-            </a>
-
-            <a href="/register" class="card">
-                <div class="card-icon">👤</div>
-                <h3 data-i18n="register">Регистрация</h3>
-                <p data-i18n="registerDesc">Добавление новых читателей в систему.</p>
-            </a>
-
-            <a href="/swagger-ui.html" class="card" target="_blank">
-                <div class="card-icon">⚙️</div>
-                <h3 data-i18n="api">API Docs</h3>
-                <p data-i18n="apiDesc">Техническая документация для разработчиков (Swagger).</p>
-            </a>
-        </div>
+<div class="container">
+    <div class="hero">
+        <h1>Добро пожаловать</h1>
+        <p>Современная система управления библиотечным фондом. Быстро, удобно, надёжно.</p>
     </div>
 
-    <footer>
-        &copy; 2025 Library Management System. Created with Spring Boot.
-    </footer>
+    <div class="grid">
+        <a href="/books" class="card">
+            <div class="card-icon">📖</div>
+            <h3>Каталог книг</h3>
+            <p>Просмотр, поиск и управление книжным фондом.</p>
+        </a>
+        <a href="/register" class="card">
+            <div class="card-icon">👤</div>
+            <h3>Регистрация</h3>
+            <p>Добавление новых читателей в систему.</p>
+        </a>
+        <a href="/dashboard" class="card">
+            <div class="card-icon">📊</div>
+            <h3>Статистика</h3>
+            <p>Обзор фонда, займов и читателей.</p>
+        </a>
+        <a href="/swagger-ui.html" class="card" target="_blank">
+            <div class="card-icon">⚙️</div>
+            <h3>API Docs</h3>
+            <p>Техническая документация (Swagger UI).</p>
+        </a>
+    </div>
+</div>
 
-    <script>
-        // Translations
-        const translations = {
-            ru: {
-                welcome: "Добро пожаловать",
-                subtitle: "Современная система управления библиотечным фондом. Быстро, удобно, надежно.",
-                catalog: "Каталог Книг",
-                catalogDesc: "Просмотр, поиск и управление книжным фондом.",
-                register: "Регистрация",
-                registerDesc: "Добавление новых читателей в систему.",
-                api: "API Docs",
-                apiDesc: "Техническая документация для разработчиков (Swagger)."
-            },
-            en: {
-                welcome: "Welcome",
-                subtitle: "Modern library management system. Fast, convenient, reliable.",
-                catalog: "Book Catalog",
-                catalogDesc: "View, search, and manage the book collection.",
-                register: "Registration",
-                registerDesc: "Add new readers to the system.",
-                api: "API Docs",
-                apiDesc: "Technical documentation for developers (Swagger)."
-            }
-        };
+<footer>&copy; 2026 LibraryOS · Spring Boot 3.3</footer>
 
-        // Language Logic
-        const langSelect = document.getElementById('langSelect');
-
-        function setLanguage(lang) {
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                if (translations[lang] && translations[lang][key]) {
-                    element.textContent = translations[lang][key];
-                }
-            });
-            localStorage.setItem('lang', lang);
-            langSelect.value = lang;
-        }
-
-        langSelect.addEventListener('change', (e) => {
-            setLanguage(e.target.value);
-        });
-
-        // Initialize Language
-        const savedLang = localStorage.getItem('lang') || 'ru';
-        setLanguage(savedLang);
-
-
-        // Dark Mode Logic
-        const toggleBtn = document.getElementById('themeToggle');
-        const body = document.body;
-
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme) {
-            body.setAttribute('data-theme', currentTheme);
-            toggleBtn.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
-        }
-
-        toggleBtn.addEventListener('click', () => {
-            if (body.getAttribute('data-theme') === 'dark') {
-                body.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'light');
-                toggleBtn.textContent = '🌙';
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
-                toggleBtn.textContent = '☀️';
-            }
-        });
-    </script>
+<script th:src="@{/js/theme.js}"></script>
 </body>
 </html>

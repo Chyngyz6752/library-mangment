@@ -1,24 +1,26 @@
 package com.example.library.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import java.time.LocalDateTime;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
-/**
- * Сущность, представляющая книгу в библиотеке.
- */
+import java.time.LocalDateTime;
+import java.util.Objects;
+
 @Entity
 @Table(name = "books", indexes = {
-        @Index(name = "idx_book_title", columnList = "title")
+        @Index(name = "idx_book_title", columnList = "title"),
+        @Index(name = "idx_book_isbn", columnList = "isbn")
 }, uniqueConstraints = {
-        @UniqueConstraint(columnNames = "isbn")
+        @UniqueConstraint(name = "uk_book_isbn", columnNames = "isbn")
 })
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Book {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookId;
@@ -33,18 +35,36 @@ public class Book {
 
     private String publisher;
 
-    private int publishYear;
+    @Column(name = "publish_year")
+    private Integer publishYear;
 
     private String language;
 
-    private int pages;
+    private Integer pages;
 
-    private int totalCopies;
+    @Column(name = "total_copies")
+    private Integer totalCopies;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @CreationTimestamp
     @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
+
+    @Version
+    private Long version;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Book other)) return false;
+        return bookId != null && bookId.equals(other.bookId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bookId);
+    }
 }

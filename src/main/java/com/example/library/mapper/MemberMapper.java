@@ -4,19 +4,22 @@ import com.example.library.dto.MemberCreateDto;
 import com.example.library.dto.MemberDto;
 import com.example.library.entity.Member;
 
-/**
- * Mapper for converting between Member entity and DTOs.
- */
-public class MemberMapper {
+public final class MemberMapper {
+
+    private MemberMapper() {
+    }
 
     public static MemberDto toDto(Member member) {
         return new MemberDto(
                 member.getMemberId(),
                 member.getFirstName(),
                 member.getLastName(),
+                member.getFullName(),
                 member.getEmail(),
                 member.getPhone(),
+                member.getAddress(),
                 member.isActive(),
+                member.getMaxAllowedLoans(),
                 member.getRegistrationDate()
         );
     }
