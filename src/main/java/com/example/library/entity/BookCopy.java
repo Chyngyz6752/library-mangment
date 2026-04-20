@@ -2,22 +2,26 @@ package com.example.library.entity;
 
 import com.example.library.enums.BookCopyStatus;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import java.time.LocalDateTime;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
-/**
- * Сущность, представляющая конкретный экземпляр книги.
- */
+import java.time.LocalDateTime;
+import java.util.Objects;
+
 @Entity
 @Table(name = "book_copies", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "barcode")
+        @UniqueConstraint(name = "uk_book_copy_barcode", columnNames = "barcode")
+}, indexes = {
+        @Index(name = "idx_copy_book", columnList = "book_id"),
+        @Index(name = "idx_copy_status", columnList = "status")
 })
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class BookCopy {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long copyId;
@@ -29,6 +33,7 @@ public class BookCopy {
     @Column(unique = true, nullable = false)
     private String barcode;
 
+    @Column(name = "accession_number")
     private String accessionNumber;
 
     @Enumerated(EnumType.STRING)
@@ -37,6 +42,22 @@ public class BookCopy {
 
     private String location;
 
+    @CreationTimestamp
     @Column(nullable = false, updatable = false)
-    private LocalDateTime addedAt = LocalDateTime.now();
+    private LocalDateTime addedAt;
+
+    @Version
+    private Long version;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BookCopy other)) return false;
+        return copyId != null && copyId.equals(other.copyId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(copyId);
+    }
 }

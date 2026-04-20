@@ -5,27 +5,27 @@ import com.example.library.dto.BookDto;
 import com.example.library.service.BookService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-/**
- * REST controller for managing books.
- * Works exclusively with DTOs.
- */
 @RestController
 @RequestMapping("/api/books")
 @RequiredArgsConstructor
-public class        BookController {
+public class BookController {
 
     private final BookService bookService;
 
     @GetMapping
-    public ResponseEntity<List<BookDto>> getAllBooks() {
-        return ResponseEntity.ok(bookService.getAllBooks());
-    }       
+    public ResponseEntity<Page<BookDto>> getAllBooks(
+            @RequestParam(required = false) String query,
+            @PageableDefault(size = 20, sort = "title") Pageable pageable
+    ) {
+        return ResponseEntity.ok(bookService.searchBooks(query, pageable));
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<BookDto> getBookById(@PathVariable Long id) {
@@ -34,9 +34,7 @@ public class        BookController {
 
     @PostMapping
     public ResponseEntity<BookDto> createBook(@Valid @RequestBody BookCreateDto bookDto) {
-        System.out.println();
-        BookDto createdBook = bookService.createBook(bookDto);
-        return new ResponseEntity<>(createdBook, HttpStatus.CREATED);
+        return new ResponseEntity<>(bookService.createBook(bookDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

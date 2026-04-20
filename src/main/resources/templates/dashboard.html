@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - LibraryOS</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<nav class="navbar">
+    <a href="/" class="logo">📚 LibraryOS</a>
+    <div class="nav-controls">
+        <a href="/" class="nav-link">Главная</a>
+        <a href="/books" class="nav-link">Каталог</a>
+        <a href="/register" class="nav-link">Регистрация</a>
+        <button class="theme-toggle" id="themeToggle" title="Переключить тему">🌙</button>
+    </div>
+</nav>
+
+<div class="container">
+    <a href="/" class="back-nav">← Главная</a>
+    <h1 class="section-title">Статистика библиотеки</h1>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">📚</div>
+            <div class="stat-value" th:text="${stats.totalBooks}">0</div>
+            <div class="stat-label">Всего книг</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">📦</div>
+            <div class="stat-value" th:text="${stats.totalCopies}">0</div>
+            <div class="stat-label">Экземпляров</div>
+        </div>
+        <div class="stat-card stat-ok">
+            <div class="stat-icon">✅</div>
+            <div class="stat-value" th:text="${stats.availableCopies}">0</div>
+            <div class="stat-label">Доступно</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-value" th:text="${stats.totalMembers}">0</div>
+            <div class="stat-label">Всего читателей</div>
+        </div>
+        <div class="stat-card stat-ok">
+            <div class="stat-icon">🟢</div>
+            <div class="stat-value" th:text="${stats.activeMembers}">0</div>
+            <div class="stat-label">Активных</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">📖</div>
+            <div class="stat-value" th:text="${stats.activeLoans}">0</div>
+            <div class="stat-label">Активных займов</div>
+        </div>
+        <div class="stat-card stat-warn">
+            <div class="stat-icon">⚠️</div>
+            <div class="stat-value" th:text="${stats.overdueLoans}">0</div>
+            <div class="stat-label">Просрочек</div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 LibraryOS · Spring Boot 3.3
+</footer>
+
+<script th:src="@{/js/theme.js}"></script>
+</body>
+</html>

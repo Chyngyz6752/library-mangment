@@ -1,21 +1,21 @@
 package com.example.library.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.Setter;
 
-/**
- * Сущность, представляющая категорию книги.
- */
+import java.util.Objects;
+
 @Entity
 @Table(name = "categories", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "name")
+        @UniqueConstraint(name = "uk_category_name", columnNames = "name")
 })
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
@@ -25,4 +25,16 @@ public class Category {
 
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Category other)) return false;
+        return categoryId != null && categoryId.equals(other.categoryId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(categoryId);
+    }
 }
