@@ -30,7 +30,7 @@ public class HomeController {
             @RequestParam(defaultValue = "20") int size,
             Model model
     ) {
-        var pageable = PageRequest.of(Math.max(0, page), Math.min(Math.max(1, size), 100), Sort.by("title"));
+        var pageable = PageRequest.of(Math.max(0, page), Math.min(Math.max(1, size), 100), Sort.by("bookId"));
         var result = bookService.searchBooks(query, pageable);
         model.addAttribute("books", result.getContent());
         model.addAttribute("query", query == null ? "" : query);
