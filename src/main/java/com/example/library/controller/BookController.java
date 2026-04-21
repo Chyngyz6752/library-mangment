@@ -22,7 +22,7 @@ public class BookController {
     @GetMapping
     public ResponseEntity<Page<BookDto>> getAllBooks(
             @RequestParam(required = false) String query,
-            @PageableDefault(size = 20, sort = "title") Pageable pageable
+            @PageableDefault(size = 20, sort = "bookId") Pageable pageable
     ) {
         return ResponseEntity.ok(bookService.searchBooks(query, pageable));
     }
