@@ -51,6 +51,10 @@ public class SecurityConfig {
                                 "/css/**", "/js/**", "/webjars/**", "/favicon.ico").permitAll()
                         .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/actuator/health", "/actuator/info").permitAll()
+                        // Личные данные участников и записи о выдачах НЕ публичны (утечка ПДн)
+                        .requestMatchers(HttpMethod.GET, "/api/members/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/loans/**").hasRole("ADMIN")
+                        // Каталог (книги, авторы, категории, копии, статистика) открыт на чтение
                         .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/members").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/loans/**").authenticated()
