@@ -10,6 +10,7 @@ import com.example.library.repository.AuthorRepository;
 import com.example.library.repository.BookCopyRepository;
 import com.example.library.repository.BookRepository;
 import com.example.library.repository.CategoryRepository;
+import com.example.library.repository.LoanRepository;
 import com.example.library.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,11 +31,23 @@ public class DataLoader implements CommandLineRunner {
     private final BookRepository bookRepository;
     private final BookCopyRepository bookCopyRepository;
     private final MemberRepository memberRepository;
+    private final LoanRepository loanRepository;
 
     @Override
     @Transactional
     public void run(String... args) {
-        log.info("Seeding reference data (idempotent)");
+        // Полная очистка БД при старте, затем эталонный сид.
+        // Гарантирует, что данные в БД (а значит и на фронте, и в API) совпадают с этим кодом,
+        // а не накапливаются от прошлых запусков (ddl-auto=update не удаляет старые строки).
+        log.info("Clearing database before seeding");
+        loanRepository.deleteAllInBatch();
+        bookCopyRepository.deleteAllInBatch();
+        bookRepository.deleteAllInBatch();
+        authorRepository.deleteAllInBatch();
+        categoryRepository.deleteAllInBatch();
+        memberRepository.deleteAllInBatch();
+
+        log.info("Seeding reference data");
 
         Map<String, Category> cats = new HashMap<>();
         cats.put("Science Fiction", ensureCategory("Science Fiction", "Sci-Fi literature"));
