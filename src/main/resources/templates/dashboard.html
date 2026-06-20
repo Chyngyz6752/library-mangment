@@ -12,6 +12,8 @@
     <div class="nav-controls">
         <a href="/" class="nav-link">Главная</a>
         <a href="/books" class="nav-link">Каталог</a>
+        <a href="/members" class="nav-link">Читатели</a>
+        <a href="/overdue" class="nav-link" style="color:#dc2626;">Просрочки</a>
         <a href="/register" class="nav-link">Регистрация</a>
         <button class="theme-toggle" id="themeToggle" title="Переключить тему">🌙</button>
     </div>
@@ -51,11 +53,11 @@
             <div class="stat-value" th:text="${stats.activeLoans}">0</div>
             <div class="stat-label">Активных займов</div>
         </div>
-        <div class="stat-card stat-warn">
+        <a href="/overdue" class="stat-card stat-warn">
             <div class="stat-icon">⚠️</div>
             <div class="stat-value" th:text="${stats.overdueLoans}">0</div>
             <div class="stat-label">Просрочек</div>
-        </div>
+        </a>
     </div>
 </div>
 

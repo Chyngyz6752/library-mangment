@@ -1,6 +1,9 @@
 package com.example.library.controller;
 
+import com.example.library.enums.LoanStatus;
 import com.example.library.service.BookService;
+import com.example.library.service.LoanService;
+import com.example.library.service.MemberService;
 import com.example.library.service.StatsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HomeController {
 
     private final BookService bookService;
+    private final MemberService memberService;
+    private final LoanService loanService;
     private final StatsService statsService;
 
     @GetMapping("/")
@@ -49,5 +54,37 @@ public class HomeController {
     public String dashboard(Model model) {
         model.addAttribute("stats", statsService.getStats());
         return "dashboard";
+    }
+
+    @GetMapping("/members")
+    public String showMembers(
+            @RequestParam(required = false) String query,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            Model model
+    ) {
+        var pageable = PageRequest.of(Math.max(0, page), Math.min(Math.max(1, size), 100), Sort.by("memberId"));
+        var result = memberService.getAllMembers(pageable);
+        model.addAttribute("members", result.getContent());
+        model.addAttribute("query", query == null ? "" : query);
+        model.addAttribute("currentPage", result.getNumber());
+        model.addAttribute("totalPages", result.getTotalPages());
+        model.addAttribute("totalElements", result.getTotalElements());
+        return "members";
+    }
+
+    @GetMapping("/overdue")
+    public String showOverdue(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            Model model
+    ) {
+        var pageable = PageRequest.of(Math.max(0, page), Math.min(Math.max(1, size), 100), Sort.by("loanId"));
+        var result = loanService.getLoans(LoanStatus.OVERDUE, pageable);
+        model.addAttribute("loans", result.getContent());
+        model.addAttribute("currentPage", result.getNumber());
+        model.addAttribute("totalPages", result.getTotalPages());
+        model.addAttribute("totalElements", result.getTotalElements());
+        return "overdue";
     }
 }

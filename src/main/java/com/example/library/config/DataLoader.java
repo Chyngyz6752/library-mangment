@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
+// @Component - Disabled for production, data inserted via SQL
 @RequiredArgsConstructor
 @Slf4j
 public class DataLoader implements CommandLineRunner {
@@ -36,18 +36,13 @@ public class DataLoader implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) {
-        // Полная очистка БД при старте, затем эталонный сид.
-        // Гарантирует, что данные в БД (а значит и на фронте, и в API) совпадают с этим кодом,
-        // а не накапливаются от прошлых запусков (ddl-auto=update не удаляет старые строки).
-        log.info("Clearing database before seeding");
-        loanRepository.deleteAllInBatch();
-        bookCopyRepository.deleteAllInBatch();
-        bookRepository.deleteAllInBatch();
-        authorRepository.deleteAllInBatch();
-        categoryRepository.deleteAllInBatch();
-        memberRepository.deleteAllInBatch();
+        // Загружаем тестовые данные только если база пустая
+        if (bookRepository.count() > 0) {
+            log.info("Database already contains data, skipping seed");
+            return;
+        }
 
-        log.info("Seeding reference data");
+        log.info("Database is empty, seeding reference data");
 
         Map<String, Category> cats = new HashMap<>();
         cats.put("Science Fiction", ensureCategory("Science Fiction", "Sci-Fi literature"));

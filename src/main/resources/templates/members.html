@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Читатели — LibraryOS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<nav class="navbar">
+    <a href="/" class="logo">📚 LibraryOS</a>
+    <div class="nav-controls">
+        <a href="/" class="nav-link">Главная</a>
+        <a href="/books" class="nav-link">Каталог</a>
+        <a href="/dashboard" class="nav-link">Статистика</a>
+        <a href="/overdue" class="nav-link" style="color:#dc2626;">Просрочки</a>
+        <a href="/register" class="nav-link">Регистрация</a>
+        <button class="theme-toggle" id="themeToggle" title="Переключить тему">🌙</button>
+    </div>
+</nav>
+
+<div class="container">
+    <a href="/" class="back-nav">← Главная</a>
+    <div class="toolbar">
+        <h1 class="section-title" style="margin:0;">Читатели</h1>
+        <form action="/members" method="get" class="search-form">
+            <input type="text" name="query" th:value="${query}" placeholder="Поиск по имени, email, телефону…" aria-label="Поиск">
+            <button type="submit" class="btn btn-primary">Найти</button>
+        </form>
+    </div>
+
+    <div class="table-card">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Email</th>
+                <th>Телефон</th>
+                <th>Адрес</th>
+                <th>Статус</th>
+                <th>Дата регистрации</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${members}">
+                <td th:text="${member.memberId}">1</td>
+                <td style="font-weight:600;" th:text="${member.firstName}">Имя</td>
+                <td style="font-weight:600;" th:text="${member.lastName}">Фамилия</td>
+                <td th:text="${member.email}">email@example.com</td>
+                <td style="font-family:monospace;font-size:0.85rem;" th:text="${member.phone} ?: '—'">Телефон</td>
+                <td th:text="${member.address} ?: '—'">Адрес</td>
+                <td>
+                    <span th:if="${member.active}" class="badge badge-success">Активен</span>
+                    <span th:unless="${member.active}" class="badge badge-warn">Неактивен</span>
+                </td>
+                <td style="font-size:0.85rem;" th:text="${member.registrationDate} ?: '—'">Дата</td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(members)}">
+                <td colspan="8" style="text-align:center;padding:2rem;opacity:0.7;">Читатели не найдены</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination" th:if="${totalPages > 1}">
+        <a th:if="${currentPage > 0}"
+           th:href="@{/members(query=${query},page=${currentPage - 1})}">«</a>
+        <span class="current" th:text="${currentPage + 1} + ' / ' + ${totalPages}">1 / 1</span>
+        <a th:if="${currentPage + 1 < totalPages}"
+           th:href="@{/members(query=${query},page=${currentPage + 1})}">»</a>
+    </div>
+</div>
+
+<footer>&copy; 2026 LibraryOS</footer>
+
+<script th:src="@{/js/theme.js}"></script>
+</body>
+</html>
