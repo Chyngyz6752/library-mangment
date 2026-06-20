@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * REST-контроллер статистики (/api/stats).
+ * Возвращает агрегированные показатели для дашборда.
+ */
+
 @RestController
 @RequestMapping("/api/stats")
 @RequiredArgsConstructor

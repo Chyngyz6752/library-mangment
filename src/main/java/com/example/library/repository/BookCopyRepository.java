@@ -15,6 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Репозиторий экземпляров книг (выборки по книге и статусу).
+ */
+
 @Repository
 public interface BookCopyRepository extends JpaRepository<BookCopy, Long> {
 

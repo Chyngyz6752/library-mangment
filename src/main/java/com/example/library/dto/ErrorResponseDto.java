@@ -5,6 +5,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+/**
+ * DTO стандартного ответа об ошибке (статус, сообщение, путь, время).
+ */
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record ErrorResponseDto(
         LocalDateTime timestamp,

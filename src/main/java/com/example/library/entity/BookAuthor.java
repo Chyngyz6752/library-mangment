@@ -7,6 +7,10 @@ import lombok.Setter;
 
 import java.util.Objects;
 
+/**
+ * JPA-сущность связи «книга — автор» (многие-ко-многим, таблица book_authors).
+ */
+
 @Entity
 @Table(name = "book_authors")
 @Getter

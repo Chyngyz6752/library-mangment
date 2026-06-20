@@ -18,6 +18,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Сервис бизнес-логики работы с книгами.
+ * Поиск, CRUD и подсчёт доступных экземпляров.
+ */
+
 @Service
 @RequiredArgsConstructor
 @Slf4j

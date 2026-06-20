@@ -12,6 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * REST-контроллер книг (/api/books).
+ * Поиск, получение, создание, обновление и удаление книг каталога.
+ */
+
 @RestController
 @RequestMapping("/api/books")
 @RequiredArgsConstructor

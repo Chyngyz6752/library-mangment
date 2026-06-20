@@ -4,6 +4,10 @@ import com.example.library.dto.MemberCreateDto;
 import com.example.library.dto.MemberDto;
 import com.example.library.entity.Member;
 
+/**
+ * Маппер преобразования между сущностью Member и её DTO.
+ */
+
 public final class MemberMapper {
 
     private MemberMapper() {

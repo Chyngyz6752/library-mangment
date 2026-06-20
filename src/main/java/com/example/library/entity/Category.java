@@ -7,6 +7,10 @@ import lombok.Setter;
 
 import java.util.Objects;
 
+/**
+ * JPA-сущность «Категория книги» (таблица categories).
+ */
+
 @Entity
 @Table(name = "categories", uniqueConstraints = {
         @UniqueConstraint(name = "uk_category_name", columnNames = "name")

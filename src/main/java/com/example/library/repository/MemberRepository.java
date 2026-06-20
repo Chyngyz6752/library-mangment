@@ -11,6 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+/**
+ * Репозиторий читателей (поиск по email).
+ */
+
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
 

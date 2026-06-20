@@ -5,6 +5,10 @@ import com.example.library.dto.BookDto;
 import com.example.library.entity.Book;
 import com.example.library.entity.Category;
 
+/**
+ * Маппер преобразования между сущностью Book и её DTO.
+ */
+
 public final class BookMapper {
 
     private BookMapper() {

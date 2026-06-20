@@ -4,6 +4,10 @@ import com.example.library.dto.BookCopyDto;
 import com.example.library.entity.Book;
 import com.example.library.entity.BookCopy;
 
+/**
+ * Маппер преобразования между сущностью BookCopy и её DTO.
+ */
+
 public final class BookCopyMapper {
 
     private BookCopyMapper() {

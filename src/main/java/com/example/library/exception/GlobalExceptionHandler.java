@@ -17,6 +17,11 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Глобальный обработчик исключений REST (@RestControllerAdvice).
+ * Преобразует ошибки приложения в единый JSON-формат ответа.
+ */
+
 @ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {

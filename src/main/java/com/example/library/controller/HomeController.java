@@ -13,6 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * MVC-контроллер веб-страниц (Thymeleaf).
+ * Отдаёт главную, каталог книг, страницу регистрации и дашборд статистики.
+ */
+
 @Controller
 @RequiredArgsConstructor
 public class HomeController {

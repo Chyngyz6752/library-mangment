@@ -7,6 +7,10 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
+/**
+ * DTO для создания/обновления книги.
+ */
+
 public record BookCreateDto(
         @NotBlank @Size(max = 255) String title,
         @Size(max = 255) String subtitle,

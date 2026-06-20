@@ -13,6 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * REST-контроллер читателей (/api/members).
+ * Регистрация, обновление, деактивация и поиск участников библиотеки.
+ */
+
 @RestController
 @RequestMapping("/api/members")
 @RequiredArgsConstructor
