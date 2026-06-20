@@ -5,6 +5,10 @@ import com.example.library.enums.LoanStatus;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/**
+ * DTO выдачи для ответа API.
+ */
+
 public record LoanDto(
         Long loanId,
         Long copyId,

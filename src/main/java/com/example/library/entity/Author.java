@@ -7,6 +7,10 @@ import lombok.Setter;
 
 import java.util.Objects;
 
+/**
+ * JPA-сущность «Автор» (таблица authors).
+ */
+
 @Entity
 @Table(name = "authors", uniqueConstraints = {
         @UniqueConstraint(name = "uk_author_full_name", columnNames = "full_name")

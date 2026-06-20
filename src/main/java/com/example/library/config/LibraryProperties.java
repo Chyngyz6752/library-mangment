@@ -4,6 +4,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.math.BigDecimal;
 
+/**
+ * Конфигурационные свойства библиотеки (префикс library.loan):
+ * срок выдачи в днях и штраф за день просрочки. Читаются из application.properties.
+ */
+
 @ConfigurationProperties(prefix = "library.loan")
 public class LibraryProperties {
 

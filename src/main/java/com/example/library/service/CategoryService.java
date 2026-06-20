@@ -12,6 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Сервис бизнес-логики работы с категориями.
+ */
+
 @Service
 @RequiredArgsConstructor
 public class CategoryService {

@@ -21,6 +21,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Загрузчик начальных (демонстрационных) данных.
+ * При пустой базе заполняет справочники: категории, авторов, книги,
+ * экземпляры и читателей.
+ */
+
 // @Component - Disabled for production, data inserted via SQL
 @RequiredArgsConstructor
 @Slf4j

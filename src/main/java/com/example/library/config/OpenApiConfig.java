@@ -8,6 +8,11 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Конфигурация OpenAPI/Swagger.
+ * Задаёт метаданные и настройку интерактивной документации REST API.
+ */
+
 @Configuration
 public class OpenApiConfig {
 

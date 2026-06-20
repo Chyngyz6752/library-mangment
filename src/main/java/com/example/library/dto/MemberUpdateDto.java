@@ -5,6 +5,10 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
+/**
+ * DTO для обновления данных читателя.
+ */
+
 public record MemberUpdateDto(
         @Size(max = 100) String firstName,
         @Size(max = 100) String lastName,

@@ -9,6 +9,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * JPA-сущность «Книга» (таблица books).
+ * Хранит метаданные издания и связь с категорией.
+ */
+
 @Entity
 @Table(name = "books", indexes = {
         @Index(name = "idx_book_title", columnList = "title"),

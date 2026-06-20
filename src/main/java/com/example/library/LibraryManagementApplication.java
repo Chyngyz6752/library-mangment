@@ -6,6 +6,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+/**
+ * Точка входа Spring Boot приложения «Система управления библиотекой».
+ * Запускает контекст приложения и автоконфигурацию Spring.
+ */
+
 @SpringBootApplication
 @ConfigurationPropertiesScan(basePackageClasses = LibraryProperties.class)
 @EnableScheduling

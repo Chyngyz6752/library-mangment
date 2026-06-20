@@ -4,6 +4,10 @@ import com.example.library.dto.AuthorCreateDto;
 import com.example.library.dto.AuthorDto;
 import com.example.library.entity.Author;
 
+/**
+ * Маппер преобразования между сущностью Author и её DTO.
+ */
+
 public final class AuthorMapper {
 
     private AuthorMapper() {

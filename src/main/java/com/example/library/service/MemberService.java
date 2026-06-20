@@ -17,6 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
+/**
+ * Сервис бизнес-логики работы с читателями.
+ */
+
 @Service
 @RequiredArgsConstructor
 @Slf4j

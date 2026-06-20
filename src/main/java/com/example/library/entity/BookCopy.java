@@ -10,6 +10,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * JPA-сущность «Экземпляр книги» (таблица book_copies).
+ * Физическая копия: штрихкод, инвентарный номер, статус и расположение.
+ */
+
 @Entity
 @Table(name = "book_copies", uniqueConstraints = {
         @UniqueConstraint(name = "uk_book_copy_barcode", columnNames = "barcode")

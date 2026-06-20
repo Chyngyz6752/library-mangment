@@ -8,6 +8,10 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * JPA-сущность «Читатель» (таблица members): ФИО, контакты и статус.
+ */
+
 @Entity
 @Table(name = "members", uniqueConstraints = {
         @UniqueConstraint(name = "uk_member_email", columnNames = "email"),

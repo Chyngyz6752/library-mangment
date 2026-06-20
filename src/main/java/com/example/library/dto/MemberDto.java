@@ -2,6 +2,10 @@ package com.example.library.dto;
 
 import java.time.LocalDate;
 
+/**
+ * DTO читателя для ответа API.
+ */
+
 public record MemberDto(
         Long memberId,
         String firstName,

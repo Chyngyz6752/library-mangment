@@ -14,6 +14,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * REST-контроллер выдач (/api/loans).
+ * Оформление выдачи и возврата книг, просмотр займов.
+ */
+
 @RestController
 @RequestMapping("/api/loans")
 @RequiredArgsConstructor

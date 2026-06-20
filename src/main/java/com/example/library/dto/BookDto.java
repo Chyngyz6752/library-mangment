@@ -2,6 +2,10 @@ package com.example.library.dto;
 
 import java.time.LocalDateTime;
 
+/**
+ * DTO книги для ответа API (с числом доступных экземпляров).
+ */
+
 public record BookDto(
         Long bookId,
         String title,

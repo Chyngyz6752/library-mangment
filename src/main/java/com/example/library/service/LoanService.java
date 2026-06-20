@@ -28,6 +28,11 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+/**
+ * Сервис бизнес-логики выдач.
+ * Оформление выдачи и возврата, расчёт штрафов и проверка правил.
+ */
+
 @Service
 @RequiredArgsConstructor
 @Slf4j

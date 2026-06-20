@@ -11,6 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+/**
+ * Репозиторий книг (поиск по названию и ISBN).
+ */
+
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 

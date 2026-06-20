@@ -9,6 +9,10 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ * Составной первичный ключ сущности BookAuthor (bookId + authorId).
+ */
+
 @Embeddable
 @Getter
 @Setter

@@ -10,6 +10,11 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * JPA-сущность «Выдача» (таблица loans).
+ * Связывает читателя и экземпляр книги; хранит сроки, статус и штраф.
+ */
+
 @Entity
 @Table(name = "loans", indexes = {
         @Index(name = "idx_loan_member", columnList = "member_id"),

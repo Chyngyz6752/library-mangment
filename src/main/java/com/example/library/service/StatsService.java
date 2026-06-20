@@ -11,6 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Сервис расчёта агрегированной статистики для дашборда.
+ */
+
 @Service
 @RequiredArgsConstructor
 public class StatsService {

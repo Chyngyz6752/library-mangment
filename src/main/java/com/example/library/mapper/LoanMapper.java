@@ -6,6 +6,10 @@ import com.example.library.entity.BookCopy;
 import com.example.library.entity.Loan;
 import com.example.library.entity.Member;
 
+/**
+ * Маппер преобразования между сущностью Loan и её DTO.
+ */
+
 public final class LoanMapper {
 
     private LoanMapper() {

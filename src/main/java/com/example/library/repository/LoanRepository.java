@@ -14,6 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Репозиторий выдач.
+ */
+
 @Repository
 public interface LoanRepository extends JpaRepository<Loan, Long> {
 

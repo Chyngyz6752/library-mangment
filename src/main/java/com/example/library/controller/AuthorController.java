@@ -12,6 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * REST-контроллер авторов (/api/authors).
+ * Обрабатывает запросы на получение, создание, изменение и удаление авторов.
+ */
+
 @RestController
 @RequestMapping("/api/authors")
 @RequiredArgsConstructor

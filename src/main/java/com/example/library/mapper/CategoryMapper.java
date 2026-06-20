@@ -4,6 +4,10 @@ import com.example.library.dto.CategoryCreateDto;
 import com.example.library.dto.CategoryDto;
 import com.example.library.entity.Category;
 
+/**
+ * Маппер преобразования между сущностью Category и её DTO.
+ */
+
 public final class CategoryMapper {
 
     private CategoryMapper() {
